@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center">Liste des produits</h1>
+<hr>
+<img class="img-fluid mb-4 animaux"
+<btn class="mb-4 ">
+ <a href="{{ path('chat') }}"><img src="{{ asset("images/chat.jpg") }}" class="d-block user-select-none" width="250px" height="auto"></a>
+  <a href="{{ path('cheval') }}"><img  src="{{asset("images/gros cheval.jpg")}}" class="d-block user-select-none" width="250px" height="auto">
+   <a href="{{ path('chien') }}"><img  src="{{asset("images/R.png")}}" class="d-block user-select-none" width="250px" height="auto">
+   </btn>
+   </img>
+{% endblock %}

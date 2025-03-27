@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche cheval{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center"> <a href=" {{path('ficheCheval', {'id': leCheval.id})}} " class="badge badge-success"> {{leCheval.nom}} </a></h1>
+<hr>
+                <div class="card-body">
+                    <th scope="col-4">Description</th>
+                    <p class="card-text">{{leCheval.description|raw}}</p>
+                </div>
+    </div>
+        <table class="table table-hover mx-auto">
+        <thead>
+            <tr>
+            <th scope="col-4">Prix : {{leCheval.prix}} $</th>
+            
+            </tr>
+        </thead>
+        
+    </table>
+
+</div>
+{% endblock %}

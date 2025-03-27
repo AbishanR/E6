@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Fiche chat{% endblock %}
+
+{% block body %}
+ <div class="pt-2 text-center">
+                        <h1><a href=" {{path('ficheChat', {'id': leChat.id})}} " class="badge badge-success"> {{leChat.nom}} </a></h1>
+                </div>
+<hr>              
+            <div>
+        <div class="col">
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{leChat.description|raw}}</p>
+                </div>
+          </div>  
+        </div>  
+      </div>
+      <table class="table table-hover mx-auto">
+        <thead>
+            <tr>
+            <th scope="col-4">Prix : {{leChat.prix}} $</th>
+            </tr>
+        </thead>
+    </table>
+  </div>
+{% endblock %}

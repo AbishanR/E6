@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout/Modif chat{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center">
+{% if (app.request.attributes.get('_route')=="admin_chat_ajout") %}
+    Ajout
+{% else %}
+    Modification
+{% endif %}
+    d'un produit pour chat</h1>
+
+
+{{ form_start(formChat, {'attr': {'novalidate': 'novalidate'}}) }}
+<style>
+.grand {
+    width: 100%;
+    height: auto;
+}
+.img-thumbnail {
+    width: 300px;
+    height: auto;
+}
+</style>
+<div class="row">
+    <div class="col">
+        <p>{{ form_row(formChat.nom) }}</p>
+        <p class="grand">{{ form_row(formChat.description) }}</p>
+        <p>{{ form_row(formChat.prix) }}</p>
+        <p>{{ form_row(formChat.produits) }}</p>
+        <p>{{ form_row(formChat.imageFile) }}</p>
+        <img src="{{ asset('images/' ~ formChat.image.vars.value) }}" class="rounded mx-auto d-block img-thumbnail">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col"><a href="{{path ('admin_chats')}}" class="btn btn-warning btn-block" >Annuler</a></div>
+    <div class="col"><input type="submit", class="btn btn-success btn-block" value=
+{% if (app.request.attributes.get('_route')=="admin_chat_ajout") %}
+    "Ajouter un produit pour chat"
+{% else %}
+    "Modifier le produit"
+{% endif %}></div>
+</div>
+ 
+{{form_end(formChat)}}
+{% endblock %}

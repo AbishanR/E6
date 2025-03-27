@@ -1,0 +1,8 @@
+controllers:
+    resource: ../src/Controller/
+    type: annotation
+
+    # config/routes.yaml
+search_results:
+  path: /search
+  controller: App\Controller\SearchController::search

@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout/Modif cheval{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center">
+{% if (app.request.attributes.get('_route')=="admin_cheval_ajout") %}
+    Ajout
+{% else %}
+    Modification
+{% endif %}
+    d'un produit pour cheval</h1>
+
+
+{{ form_start(formCheval, {'attr': {'novalidate': 'novalidate'}}) }}
+<style>
+.grand {
+    width: 100%;
+    height: auto;
+}
+.img-thumbnail {
+    width: 300px;
+    height: auto;
+}
+</style>
+<div class="row">
+    <div class="col">
+        <p>{{ form_row(formCheval.nom) }}</p>
+        <p class="grand">{{ form_row(formCheval.description) }}</p>
+        <p>{{ form_row(formCheval.prix) }}</p>
+        <p>{{ form_row(formCheval.imageFile) }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <img src="{{ asset('images/' ~ formCheval.image.vars.value) }}" alt="" class="rounded mx-auto d-block img-thumbnail">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col"><a href="{{path ('admin_chevaux')}}" class="btn btn-warning btn-block" >Annuler</a></div>
+    <div class="col"><input type="submit", class="btn btn-success btn-block" value=
+{% if (app.request.attributes.get('_route')=="admin_cheval_ajout") %}
+    "Ajouter un produit pour cheval"
+{% else %}
+    "Modifier le produit"
+{% endif %}></div>
+</div>
+ 
+
+
+{{form_end(formCheval)}}
+{% endblock %}

@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion chiens{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center">Gestion des produits pour chien</h1>
+<a href="{{path("admin_chien_ajout")}}" class="btn btn-success">Ajouter un produit pour chien</a>
+<hr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Description</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for leChien in lesChiens %}
+    <tr>
+      <td>{{leChien.nom}}</td>
+      <td>{{ leChien.description|length > 30 ? leChien.description|slice(0, 30) ~ '...' : leChien.description }}</td>
+      <td>{{leChien.prix}} $</td>
+      <td>
+        <a href="{{path('admin_chien_modif' , {'id': leChien.id})}}" class="btn btn-primary"><i class="fas fa-pen"></i></a>
+        <a class="btn btn-danger" 
+          data-toggle="modal" 
+          data-target="#modalSimple" 
+          data-titre="Supression d'un produit pour chien" 
+          data-message="Êtes-vous sûr de vouloir supprimer le produit : {{leChien.nom}}" 
+          data-libelleBouton="Supprimer le produit"
+          data-lien="{{path('admin_chien_supression', {'id' : leChien.id})}}"
+        ><i class="far fa-trash-alt"></i></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="navigation mx-auto">
+  {{ knp_pagination_render(lesChiens) }}
+</div>
+{% endblock %}
+{% block javascripts %}
+{% include "include/modale.html.twig"%}
+{% endblock %}

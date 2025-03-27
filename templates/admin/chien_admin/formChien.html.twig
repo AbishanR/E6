@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout/Modif chien{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center">
+{% if (app.request.attributes.get('_route')=="admin_chien_ajout") %}
+    Ajout
+{% else %}
+    Modification
+{% endif %}
+    d'un produit pour chien</h1>
+
+
+{{ form_start(formChien, {'attr': {'novalidate': 'novalidate'}}) }}
+<style>
+.grand {
+    width: 100%;
+    height: auto;
+}
+.img-thumbnail {
+    width: 300px;
+    height: auto;
+}
+</style>
+<div class="row">
+    <div class="col">
+        <p>{{ form_row(formChien.nom) }}</p>
+        <p class="grand">{{ form_row(formChien.description) }}</p>
+        <p>{{ form_row(formChien.prix) }}</p>
+        <p>{{ form_row(formChien.imageFile) }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <img src="{{ asset('images/' ~ formChien.image.vars.value) }}" alt="" class="rounded mx-auto d-block img-thumbnail">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col"><a href="{{path ('admin_chiens')}}" class="btn btn-warning btn-block" >Annuler</a></div>
+    <div class="col"><input type="submit", class="btn btn-success btn-block" value=
+{% if (app.request.attributes.get('_route')=="admin_chien_ajout") %}
+    "Ajouter un produit pour chien"
+{% else %}
+    "Modifier le produit"
+{% endif %}></div>
+</div>
+ 
+
+
+{{form_end(formChien)}}
+{% endblock %}

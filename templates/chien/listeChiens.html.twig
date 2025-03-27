@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des produits pour chien{% endblock %}
+
+{% block body %}
+
+<h1 class="pt-2 text-center">Liste des produits pour chien</h1>
+<hr>
+<div class="row pt-2">
+{% for leChien in lesChiens %}
+{% if leChien.prix == leChien.prix %} {% set color = "lightgreen" %}{% endif %}
+<div class="col-sm-12.col-md-4.col-lg-4.col col-xl-3">
+
+    {% set nbChiens = leChien|length %}
+        
+        <div class="card mb-3">
+            <h3 class="card-header"> <a href="{{path('ficheChien', {'id': leChien.id })}} ">{{leChien.nom}} </a></h3>
+            <div class="card-body">
+            <img class = "avatar mx auto d-block" src="{{asset("images/" ~ leChien.image)}}" class="d-block user-select-none" width="200px" height="auto"</img> </div>
+            <div class="card-body">
+            <p class="card-text">{{leChien.description|slice(0,200)|raw}}...</p>
+            <ul class=“list-group list-group-flush-center”>
+            <li class=“list-group-item”><span style="background-color: {{ color }};" class=“card-text”>{{leChien.prix}}$</span></li> </ul>
+            </div>
+        </div>
+</div>
+
+{% endfor %}
+
+
+</div>
+{% endblock %}

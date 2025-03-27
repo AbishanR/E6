@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gestion chats{% endblock %}
+
+{% block body %}
+<h1 class="pt-2 text-center">Gestion des produits pour chat</h1>
+<a href="{{path("admin_chat_ajout")}}" class="btn btn-success">Ajouter un produit pour chat</a>
+<hr>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Nom</th>
+      <th scope="col">Description</th>
+      <th scope="col">Prix</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for leChat in lesChats %}
+    <tr>
+      <td>{{leChat.nom}}</td>
+      <td>{{ leChat.description|length > 30 ? leChat.description|slice(0, 30) ~ '...' : leChat.description }}</td>
+      <td>{{leChat.prix}} $</td>
+      <td>
+        <a href="{{path('admin_chat_modif' , {'id': leChat.id})}}" class="btn btn-primary"><i class="fas fa-pen"></i></a>
+        <a class="btn btn-danger" 
+          data-toggle="modal" 
+          data-target="#modalSimple" 
+          data-titre="Supression d'un produit pour chat" 
+          data-message="Êtes-vous sûr de vouloir supprimer le produit : {{leChat.nom}}" 
+          data-libelleBouton="Supprimer le produit"
+          data-lien="{{path('admin_chat_supression', {'id' : leChat.id})}}"
+        ><i class="far fa-trash-alt"></i></a>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+<div class="navigation mx-auto">
+  {{ knp_pagination_render(lesChats) }}
+</div>
+{% endblock %}
+{% block javascripts %}
+{% include "include/modale.html.twig"%}
+{% endblock %}
