@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
-use Doctrine\DBAL\Types\Types;
 use App\Entity\Produit;
-use App\Repository\ChatRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\ChatRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
 #[ORM\Entity(repositoryClass: ChatRepository::class)]
 class Chat
 {
@@ -28,6 +31,14 @@ class Chat
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt;
+
+    #[ORM\OneToMany(targetEntity: Categorie::class, mappedBy: 'chat')]
+    private Collection $categorie;
+    
+    public function __construct()
+    {
+        $this->categorie = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,20 +114,19 @@ class Chat
         return $this;
     }
 
-        /**
-     * @return Collection<int, self>
+    /**
+     * @return Collection<int, Produit>
      */
-    public function getProduits(): Collection
+    public function getCategorie(): Collection
     {
-        return $this->produits;
+        return $this->categorie;
     }
 
-    public function addProduit(self $produit): static
+    public function setCategorie(Collection $categorie): static
     {
-        if (!$this->produits->contains($produit)) {
-            $this->produits->add($produit);
-            $produit->setCategorie($this);
-        }
+        $this->categorie = $categorie;
 
+        return $this;
     }
+
 }

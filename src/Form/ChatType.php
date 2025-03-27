@@ -8,7 +8,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Categorie;
 
 class ChatType extends AbstractType
 {
@@ -16,30 +17,35 @@ class ChatType extends AbstractType
     {
         $builder
             ->add('imageFile', FileType::class, [
-            'mapped'=>false, 
-            'required'=>false, 
-            'label'=> "image"
+                'mapped' => false, 
+                'required' => false, 
+                'label' => "image"
             ])
-            ->add('image',TextType::class,[
-                'attr'=>[]
+            ->add('image', TextType::class, [
+                'attr' => []
             ])
             ->add('nom', TextType::class, [
-                'attr' => ['class' => 'form-control'],
-                'label' => "Nom du produit",
-                'required' => true,
                 'attr' => [
-                    'placeholder' => "Saisir le nom du produit",
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => "Saisir le nom du produit"
+                ],
+                'label' => "Nom du produit",
+                'required' => true
+            ])
+            ->add('prix')
+            ->add('description', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => "Saisir une description"
                 ]
             ])
-            ->add ('prix')
-            ->add('description', TextType::class, [
-                'attr'=>['class'=>'form-control',
-                'placeholder' =>"Saisir une description"]
-            ])
-            ->add ('produit')
-            
-        ;
+            ->add('categorie', EntityType::class, [
+                'class' => Categorie::class,
+                'choice_label' => 'nom',
+                'multiple' => true,
+                'expanded' => false,
+                'required' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
